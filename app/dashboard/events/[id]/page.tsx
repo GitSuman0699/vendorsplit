@@ -17,6 +17,7 @@ export default async function EventDetailPage({ params }: PageProps) {
 
   const vendors = await listVendorsForEvent(id);
   const stats = await getDashboardStats(id);
+  const vendorStatsMap = new Map(stats.vendorBreakdown.map(v => [v.vendorId, v]));
 
   return (
     <div className="page">
@@ -94,7 +95,9 @@ export default async function EventDetailPage({ params }: PageProps) {
           </div>
         ) : (
           <div className="vendors-grid stagger">
-            {vendors.map((vendor) => (
+            {vendors.map((vendor) => {
+              const vStats = vendorStatsMap.get(vendor.id) || { totalSales: 0, totalCommission: 0, transactionCount: 0 };
+              return (
               <div key={vendor.id} className={`card ${styles.vendorCard}`}>
                 <div className={styles.vendorHeader}>
                   <div className={styles.vendorAvatar}>
@@ -115,15 +118,15 @@ export default async function EventDetailPage({ params }: PageProps) {
                 <div className={styles.vendorStats}>
                   <div className={styles.vendorStatItem}>
                     <span className={styles.vendorStatLabel}>Sales</span>
-                    <span className={styles.vendorStatValue}>{formatCents(vendor.totalSales)}</span>
+                    <span className={styles.vendorStatValue}>{formatCents(vStats.totalSales)}</span>
                   </div>
                   <div className={styles.vendorStatItem}>
                     <span className={styles.vendorStatLabel}>Commission</span>
-                    <span className={styles.vendorStatValue}>{formatCents(vendor.totalCommission)}</span>
+                    <span className={styles.vendorStatValue}>{formatCents(vStats.totalCommission)}</span>
                   </div>
                   <div className={styles.vendorStatItem}>
                     <span className={styles.vendorStatLabel}>Transactions</span>
-                    <span className={styles.vendorStatValue}>{vendor.transactionCount}</span>
+                    <span className={styles.vendorStatValue}>{vStats.transactionCount}</span>
                   </div>
                 </div>
 
@@ -145,7 +148,8 @@ export default async function EventDetailPage({ params }: PageProps) {
                   </span>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </main>

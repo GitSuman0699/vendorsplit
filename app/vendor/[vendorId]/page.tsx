@@ -24,6 +24,12 @@ export default async function VendorDashboardPage({ params }: PageProps) {
 
   const transactions = await listTransactionsForVendor(vendorId);
 
+  const validStatuses = ['approved', 'success', 'settled'];
+  const validTxs = transactions.filter(t => validStatuses.includes(t.status));
+  const totalSales = validTxs.reduce((sum, t) => sum + t.amount, 0);
+  const totalCommission = validTxs.reduce((sum, t) => sum + t.commission, 0);
+  const totalNet = validTxs.reduce((sum, t) => sum + t.netAmount, 0);
+
   return (
     <div className="page">
       {/* Top Bar */}
@@ -69,15 +75,15 @@ export default async function VendorDashboardPage({ params }: PageProps) {
             <div className={styles.statsGrid}>
               <div className="card stat-card">
                 <span className="stat-label">Total Sales</span>
-                <span className="stat-value">{formatCents(vendor.totalSales)}</span>
+                <span className="stat-value">{formatCents(totalSales)}</span>
               </div>
               <div className="card stat-card">
                 <span className="stat-label">Your Net Payout</span>
                 <span className="stat-value" style={{ color: 'var(--color-success)' }}>
-                  {formatCents(vendor.totalNet)}
+                  {formatCents(totalNet)}
                 </span>
                 <span style={{ fontSize: '0.75rem', color: 'var(--color-slate)', marginTop: '4px', display: 'block' }}>
-                  Commission paid: {formatCents(vendor.totalCommission)}
+                  Commission paid: {formatCents(totalCommission)}
                 </span>
               </div>
             </div>
