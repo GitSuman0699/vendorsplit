@@ -12,6 +12,8 @@ type PageProps = {
 };
 
 import { Suspense } from 'react';
+import { DashboardSidebar } from './DashboardSidebar';
+import { DashboardTransitionWrapper } from './DashboardTransitionWrapper';
 
 export default async function DashboardPage({ searchParams }: PageProps) {
   const { eventId } = await searchParams;
@@ -22,11 +24,15 @@ export default async function DashboardPage({ searchParams }: PageProps) {
   
   // Use selected event or default to first active one
   const event = eventId ? events.find(e => e.id === eventId) || events[0] : events[0];
+  const defaultEventId = events[0]?.id;
   const pendingCount = await getPendingSettlementCount();
 
   if (!event) {
     return <div className="page" style={{ padding: '40px', textAlign: 'center' }}>No events found. Create one to get started!</div>;
   }
+
+  // Generate a skeleton for the fallback
+  const fallbackSkeleton = <DashboardMainSkeleton event={{ ...event, name: 'Loading...', location: '...', commissionRate: 0, date: new Date() }} />;
 
   return (
     <div className="page">
@@ -49,32 +55,19 @@ export default async function DashboardPage({ searchParams }: PageProps) {
       </nav>
 
       <div className={styles.layout}>
-        {/* ---- Sidebar ---- */}
-        <aside className={styles.sidebar}>
-          <div className={styles.sidebarSection}>
-            <h4 className={styles.sidebarLabel}>Your Events</h4>
-            {events.map((ev) => (
-              <Link
-                key={ev.id}
-                href={`?eventId=${ev.id}`}
-                className={`${styles.sidebarItem} ${ev.id === event.id ? styles.sidebarItemActive : ''}`}
-              >
-                <span className={styles.sidebarItemDot} />
-                <span>{ev.name}</span>
-              </Link>
-            ))}
-          </div>
-          <div className={styles.sidebarSection}>
-            <Link href="/dashboard/events/new" className="btn btn-primary" style={{ width: '100%' }}>
-              + Create Event
-            </Link>
-          </div>
-        </aside>
+        {/* ---- Sidebar (Client Component for instant highlight) ---- */}
+        <DashboardSidebar events={events} defaultEventId={defaultEventId} />
 
-        {/* ---- Main ---- */}
-        <Suspense key={event.id} fallback={<DashboardMainSkeleton event={event} />}>
-          <DashboardMain event={event} />
-        </Suspense>
+        {/* ---- Main (Client Wrapper for instant skeleton) ---- */}
+        <DashboardTransitionWrapper 
+          serverEventId={event.id} 
+          defaultEventId={defaultEventId} 
+          fallback={fallbackSkeleton}
+        >
+          <Suspense fallback={fallbackSkeleton}>
+            <DashboardMain event={event} />
+          </Suspense>
+        </DashboardTransitionWrapper>
       </div>
     </div>
   );
