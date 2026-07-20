@@ -35,6 +35,9 @@ export async function POST(request: NextRequest) {
 
     const event = await createEvent({
       name: body.name,
+      description: body.description,
+      date: body.date,
+      location: body.location,
       commissionRate: body.commissionRate,
     } as any);
 

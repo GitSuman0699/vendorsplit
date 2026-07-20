@@ -27,6 +27,9 @@ export async function createEvent(data: Omit<Event, 'id' | 'status' | 'createdAt
     data: {
       id: generateId(),
       name: data.name,
+      description: data.description,
+      date: data.date ? new Date(data.date) : undefined,
+      location: data.location,
       commissionRate: data.commissionRate,
       status: 'active',
     },
