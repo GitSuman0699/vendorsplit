@@ -1,27 +1,20 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import { ReactNode } from 'react';
+import { useDashboard } from './DashboardContext';
 
 export function DashboardTransitionWrapper({ 
   serverEventId, 
-  defaultEventId,
   children, 
   fallback 
 }: { 
   serverEventId: string, 
-  defaultEventId: string,
   children: ReactNode, 
   fallback: ReactNode 
 }) {
-  const searchParams = useSearchParams();
-  const queryEventId = searchParams.get('eventId');
-  const expectedEventId = queryEventId || defaultEventId;
+  const { optimisticEventId } = useDashboard();
   
-  // If the client's expected event ID from the URL differs from what the server 
-  // currently rendered, it means we are in the middle of a route transition. 
-  // We can instantly show the loading skeleton to provide immediate feedback!
-  if (expectedEventId !== serverEventId) {
+  if (optimisticEventId !== serverEventId) {
     return <>{fallback}</>;
   }
 

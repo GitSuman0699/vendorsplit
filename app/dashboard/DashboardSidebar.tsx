@@ -1,27 +1,38 @@
 'use client';
 
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 import styles from './dashboard.module.css';
+import { useDashboard } from './DashboardContext';
 
-export function DashboardSidebar({ events, defaultEventId }: { events: any[], defaultEventId: string }) {
-  const searchParams = useSearchParams();
-  const queryEventId = searchParams.get('eventId');
-  const activeEventId = queryEventId || defaultEventId;
+export function DashboardSidebar({ events }: { events: any[] }) {
+  const router = useRouter();
+  const { optimisticEventId, setOptimisticEventId } = useDashboard();
+  const [isPending, startTransition] = useTransition();
 
   return (
     <aside className={styles.sidebar}>
       <div className={styles.sidebarSection}>
         <h4 className={styles.sidebarLabel}>Your Events</h4>
         {events.map((ev) => (
-          <Link
+          <a
             key={ev.id}
             href={`?eventId=${ev.id}`}
-            className={`${styles.sidebarItem} ${ev.id === activeEventId ? styles.sidebarItemActive : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              // Update context instantly for 0ms delay UI transition
+              setOptimisticEventId(ev.id);
+              // Background network request to fetch the new page
+              startTransition(() => {
+                router.push(`?eventId=${ev.id}`);
+              });
+            }}
+            className={`${styles.sidebarItem} ${ev.id === optimisticEventId ? styles.sidebarItemActive : ''}`}
           >
             <span className={styles.sidebarItemDot} />
             <span>{ev.name}</span>
-          </Link>
+          </a>
         ))}
       </div>
       <div className={styles.sidebarSection}>

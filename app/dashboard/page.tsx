@@ -12,6 +12,7 @@ type PageProps = {
 };
 
 import { Suspense } from 'react';
+import { DashboardProvider } from './DashboardContext';
 import { DashboardSidebar } from './DashboardSidebar';
 import { DashboardTransitionWrapper } from './DashboardTransitionWrapper';
 
@@ -24,7 +25,6 @@ export default async function DashboardPage({ searchParams }: PageProps) {
   
   // Use selected event or default to first active one
   const event = eventId ? events.find(e => e.id === eventId) || events[0] : events[0];
-  const defaultEventId = events[0]?.id;
   const pendingCount = await getPendingSettlementCount();
 
   if (!event) {
@@ -54,21 +54,22 @@ export default async function DashboardPage({ searchParams }: PageProps) {
         </div>
       </nav>
 
-      <div className={styles.layout}>
-        {/* ---- Sidebar (Client Component for instant highlight) ---- */}
-        <DashboardSidebar events={events} defaultEventId={defaultEventId} />
+      <DashboardProvider serverEventId={event.id}>
+        <div className={styles.layout}>
+          {/* ---- Sidebar (Client Component for instant highlight) ---- */}
+          <DashboardSidebar events={events} />
 
-        {/* ---- Main (Client Wrapper for instant skeleton) ---- */}
-        <DashboardTransitionWrapper 
-          serverEventId={event.id} 
-          defaultEventId={defaultEventId} 
-          fallback={fallbackSkeleton}
-        >
-          <Suspense fallback={fallbackSkeleton}>
-            <DashboardMain event={event} />
-          </Suspense>
-        </DashboardTransitionWrapper>
-      </div>
+          {/* ---- Main (Client Wrapper for instant skeleton) ---- */}
+          <DashboardTransitionWrapper 
+            serverEventId={event.id} 
+            fallback={fallbackSkeleton}
+          >
+            <Suspense fallback={fallbackSkeleton}>
+              <DashboardMain event={event} />
+            </Suspense>
+          </DashboardTransitionWrapper>
+        </div>
+      </DashboardProvider>
     </div>
   );
 }
