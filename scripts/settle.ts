@@ -71,7 +71,7 @@ async function runSettlement() {
 
   console.log('\n💸 SETTLEMENT INSTRUCTIONS DISPATCHED TO BANK:\n');
 
-  for (const [vendorId, totals] of vendorTotals.entries()) {
+  for (const [_, totals] of vendorTotals.entries()) {
     totalOrganizerCommission += totals.commissionTotal;
 
     console.log(`   🏦 VENDOR PAYOUT: ${totals.vendorName}`);

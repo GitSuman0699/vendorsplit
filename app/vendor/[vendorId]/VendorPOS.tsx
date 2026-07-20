@@ -5,11 +5,10 @@ import styles from '@/app/dashboard/events/[id]/event.module.css';
 
 interface VendorPOSProps {
   vendorId: string;
-  vendorName: string;
   eventId: string;
 }
 
-export function VendorPOS({ vendorId, vendorName, eventId }: VendorPOSProps) {
+export function VendorPOS({ vendorId, eventId }: VendorPOSProps) {
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');

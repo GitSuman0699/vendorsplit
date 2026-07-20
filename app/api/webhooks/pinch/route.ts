@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getVendorByPinchMerchantId, createTransaction, getEvent } from '@/lib/db';
+import crypto from 'crypto';
 
 /**
  * Pinch Webhook Handler
@@ -13,7 +14,28 @@ import { getVendorByPinchMerchantId, createTransaction, getEvent } from '@/lib/d
  */
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const rawBody = await request.text();
+    const signature = request.headers.get('Pinch-Signature') || request.headers.get('pinch-signature');
+    const secret = process.env.PINCH_WEBHOOK_SECRET;
+
+    if (secret && secret !== 'whsec_REPLACE_ME') {
+      if (!signature) {
+        console.error('[VendorSplit Webhook] Missing signature header');
+        return NextResponse.json({ error: 'Missing signature' }, { status: 401 });
+      }
+      
+      const expectedSignature = crypto
+        .createHmac('sha256', secret)
+        .update(rawBody)
+        .digest('hex');
+        
+      if (signature !== expectedSignature) {
+        console.error('[VendorSplit Webhook] Invalid signature mismatch');
+        return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
+      }
+    }
+
+    const body = JSON.parse(rawBody);
 
     console.log('[VendorSplit Webhook] Received:', JSON.stringify(body, null, 2));
 

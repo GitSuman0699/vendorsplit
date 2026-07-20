@@ -1,6 +1,6 @@
 import { getVendor, listTransactionsForVendor, getEvent } from '@/lib/db';
 import { formatCents } from '@/lib/pinch';
-import Link from 'next/link';
+
 import { notFound } from 'next/navigation';
 import { VendorPOS } from './VendorPOS';
 import styles from './vendor.module.css';
@@ -58,7 +58,6 @@ export default async function VendorDashboardPage({ params }: PageProps) {
               <h2>Point of Sale</h2>
               <VendorPOS 
                 vendorId={vendor.id} 
-                vendorName={vendor.name} 
                 eventId={event.id}
               />
             </div>
