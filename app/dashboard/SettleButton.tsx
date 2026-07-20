@@ -9,30 +9,33 @@ interface SettleButtonProps {
 
 export function SettleButton({ pendingCount }: SettleButtonProps) {
   const [loading, setLoading] = useState(false);
+  const [confirming, setConfirming] = useState(false);
   const router = useRouter();
 
   const hasSettleable = pendingCount > 0;
 
   const handleSettle = async () => {
-    if (!hasSettleable) return;
+    if (!hasSettleable || loading) return;
 
-    if (!confirm(`This will simulate the overnight bank settlement for ${pendingCount} pending transaction${pendingCount !== 1 ? 's' : ''}. Continue?`)) {
+    if (!confirming) {
+      setConfirming(true);
+      setTimeout(() => setConfirming(false), 3000);
       return;
     }
     
+    setConfirming(false);
     setLoading(true);
     try {
       const res = await fetch('/api/settle', { method: 'POST' });
       const data = await res.json();
       
       if (data.success) {
-        alert(data.message);
         router.refresh();
       } else {
-        alert('Error: ' + data.error);
+        console.error('Error: ' + data.error);
       }
     } catch (err) {
-      alert('Failed to simulate settlement');
+      console.error('Failed to simulate settlement');
     } finally {
       setLoading(false);
     }
@@ -44,16 +47,16 @@ export function SettleButton({ pendingCount }: SettleButtonProps) {
     <button 
       onClick={handleSettle}
       disabled={isDisabled}
-      title={hasSettleable ? `${pendingCount} transaction${pendingCount !== 1 ? 's' : ''} ready to settle` : 'No pending transactions to settle'}
+      title={hasSettleable ? `${pendingCount} transactions ready to settle` : 'No pending transactions to settle'}
       style={{
         background: hasSettleable
-          ? 'linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.1))'
+          ? (confirming ? 'linear-gradient(135deg, rgba(234,179,8,0.2), rgba(234,179,8,0.1))' : 'linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.1))')
           : 'rgba(255, 255, 255, 0.05)',
         border: hasSettleable
-          ? '1px solid rgba(34,197,94,0.4)'
+          ? (confirming ? '1px solid rgba(234,179,8,0.4)' : '1px solid rgba(34,197,94,0.4)')
           : '1px solid rgba(255, 255, 255, 0.1)',
         color: hasSettleable
-          ? '#4ade80'
+          ? (confirming ? '#eab308' : '#4ade80')
           : 'var(--color-slate)',
         padding: '6px 12px',
         borderRadius: '6px',
@@ -64,14 +67,16 @@ export function SettleButton({ pendingCount }: SettleButtonProps) {
         alignItems: 'center',
         gap: '6px',
         transition: 'all 0.2s ease',
-        boxShadow: hasSettleable ? '0 0 12px rgba(34,197,94,0.15)' : 'none',
+        boxShadow: hasSettleable ? (confirming ? '0 0 12px rgba(234,179,8,0.15)' : '0 0 12px rgba(34,197,94,0.15)') : 'none',
       }}
     >
       {loading
-        ? '⏳ Simulating...'
-        : hasSettleable
-          ? `⏱️ Simulate Settlement (${pendingCount})`
-          : '⏱️ Nothing to Settle'}
+        ? '⏳ Settling...'
+        : confirming 
+          ? '⚠️ Click to Confirm'
+          : hasSettleable
+            ? `⏱️ Simulate Settlement (${pendingCount})`
+            : '⏱️ Nothing to Settle'}
     </button>
   );
 }
