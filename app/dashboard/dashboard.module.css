@@ -1,0 +1,302 @@
+/* ---- Dashboard Layout ---- */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 56px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.topbarInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 var(--space-lg);
+}
+
+.topbarLogo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.topbarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.modeBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  padding-top: 56px;
+}
+
+/* ---- Sidebar ---- */
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  padding: var(--space-lg);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.sidebarSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.sidebarLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-slate);
+  margin-bottom: var(--space-xs);
+}
+
+.sidebarItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  color: var(--color-slate-light);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebarItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-orange-glow);
+  transform: translateX(-100%);
+  transition: transform var(--transition-base);
+  z-index: 0;
+}
+
+.sidebarItem > * {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebarItem:hover {
+  color: var(--color-white);
+}
+
+.sidebarItem:hover::before {
+  transform: translateX(0);
+}
+
+.sidebarItemActive {
+  color: var(--color-orange);
+}
+
+.sidebarItemActive::before {
+  transform: translateX(0);
+}
+
+.sidebarItemDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-success);
+  flex-shrink: 0;
+}
+
+/* ---- Main Content ---- */
+
+.main {
+  flex: 1;
+  padding: var(--space-xl);
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-xl);
+}
+
+.headerSub {
+  font-size: 0.9rem;
+  color: var(--color-slate-light);
+  margin-top: var(--space-sm);
+}
+
+.statsSection {
+  margin-bottom: var(--space-xl);
+}
+
+/* ---- Two Column Layout ---- */
+
+.columns {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+/* ---- Card Header ---- */
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cardHeader h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.liveDot {
+  font-size: 0.75rem;
+  color: var(--color-success);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ---- Feed ---- */
+
+.feedList {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.emptyState {
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.emptyState p {
+  color: var(--color-slate);
+  font-size: 0.9rem;
+}
+
+/* ---- Vendor Breakdown ---- */
+
+.vendorList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.vendorRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  animation: fadeIn 0.4s ease both;
+}
+
+.vendorRow:last-child {
+  border-bottom: none;
+}
+
+.vendorInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vendorName {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-white);
+}
+
+.vendorTxCount {
+  font-size: 0.75rem;
+  color: var(--color-slate);
+}
+
+.vendorBarWrap {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.vendorBar {
+  height: 100%;
+  background: var(--gradient-brand);
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease;
+}
+
+.vendorAmount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vendorSales {
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--color-white);
+  font-size: 0.95rem;
+}
+
+.vendorCommission {
+  font-size: 0.75rem;
+  color: var(--color-orange);
+  font-family: var(--font-mono);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 1024px) {
+  .columns {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main {
+    padding: var(--space-md);
+  }
+
+  .header {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+}

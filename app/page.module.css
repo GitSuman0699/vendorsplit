@@ -1,0 +1,372 @@
+/* ---- Nav ---- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoIcon {
+  font-size: 1.5rem;
+}
+
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-white);
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* ---- Hero ---- */
+.hero {
+  padding: 160px 0 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-orange);
+  background: var(--color-orange-glow);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-lg);
+  animation: fadeIn 0.5s ease;
+}
+
+.heroBadgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-orange);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin-bottom: var(--space-lg);
+  animation: fadeIn 0.5s ease 0.1s backwards;
+}
+
+.heroGradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--color-slate-light);
+  margin-bottom: var(--space-xl);
+  animation: fadeIn 0.5s ease 0.2s backwards;
+}
+
+.heroCta {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  animation: fadeIn 0.5s ease 0.3s backwards;
+}
+
+/* Social Proof */
+.socialProof {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-xl);
+  margin-top: var(--space-3xl);
+  padding: var(--space-lg) var(--space-xl);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-xl);
+  animation: fadeIn 0.5s ease 0.4s backwards;
+}
+
+.proofStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.proofValue {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+.proofLabel {
+  font-size: 0.75rem;
+  color: var(--color-slate);
+  text-align: center;
+}
+
+.proofDivider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ---- How It Works ---- */
+.howItWorks {
+  padding: var(--space-3xl) 0;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+  font-size: 2rem;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.step {
+  text-align: center;
+  padding: var(--space-xl);
+}
+
+.step h3 {
+  margin-bottom: var(--space-sm);
+}
+
+.stepNumber {
+  font-size: 3rem;
+  font-weight: 900;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.6;
+  margin-bottom: var(--space-md);
+}
+
+/* ---- Features ---- */
+.features {
+  padding: var(--space-3xl) 0;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.feature {
+  padding: var(--space-lg);
+}
+
+.feature h4 {
+  margin-bottom: var(--space-sm);
+  color: var(--color-white);
+}
+
+.featureIcon {
+  font-size: 2rem;
+  margin-bottom: var(--space-md);
+}
+
+/* ---- Pricing ---- */
+.pricing {
+  padding: var(--space-3xl) 0;
+}
+
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.pricingCard {
+  text-align: center;
+  padding: var(--space-xl);
+  position: relative;
+}
+
+.pricingCard h3 {
+  margin-bottom: var(--space-md);
+}
+
+.pricingFeatured {
+  border-color: var(--color-orange);
+  box-shadow: 0 0 30px rgba(249, 115, 22, 0.15);
+  transform: scale(1.04);
+}
+
+.pricingFeatured:hover {
+  transform: scale(1.06);
+}
+
+.pricingBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--gradient-brand);
+  color: var(--color-navy);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: var(--space-lg);
+}
+
+.priceAmount {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--color-white);
+}
+
+.pricePeriod {
+  font-size: 0.9rem;
+  color: var(--color-slate);
+}
+
+.pricingFeatures {
+  list-style: none;
+  text-align: left;
+}
+
+.pricingFeatures li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--color-slate-light);
+  font-size: 0.9rem;
+}
+
+.pricingFeatures li::before {
+  content: '✓ ';
+  color: var(--color-success);
+  font-weight: 700;
+}
+
+/* ---- Footer ---- */
+.footer {
+  padding: var(--space-2xl) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: var(--space-3xl);
+}
+
+.footerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerBrand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footerText {
+  font-size: 0.85rem;
+  color: var(--color-slate);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+
+  .heroCta {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .socialProof {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .proofDivider {
+    width: 60px;
+    height: 1px;
+  }
+
+  .stepsGrid,
+  .featuresGrid,
+  .pricingGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricingFeatured {
+    transform: none;
+  }
+
+  .pricingFeatured:hover {
+    transform: translateY(-2px);
+  }
+
+  .footerInner {
+    flex-direction: column;
+    gap: var(--space-md);
+    text-align: center;
+  }
+}

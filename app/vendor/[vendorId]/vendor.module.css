@@ -1,0 +1,102 @@
+/* Vendor Portal Styles */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 56px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.topbarInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 var(--space-lg);
+}
+
+.topbarLogo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.modeBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+}
+
+.main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px var(--space-lg) var(--space-2xl);
+}
+
+.header {
+  margin-bottom: var(--space-xl);
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.headerMeta {
+  color: var(--color-slate-light);
+  font-size: 1.1rem;
+}
+
+.layoutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--space-xl);
+}
+
+.posColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.posCard {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-xl);
+  background: var(--gradient-glass);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card), 0 0 40px rgba(249, 115, 22, 0.05);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  position: relative;
+  z-index: 10;
+}
+
+.posIcon {
+  font-size: 4rem;
+  margin-bottom: var(--space-md);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+@media (max-width: 768px) {
+  .layoutGrid {
+    grid-template-columns: 1fr;
+  }
+}

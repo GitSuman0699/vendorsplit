@@ -1,0 +1,379 @@
+/* Event Detail Page Styles */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 56px;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.topbarInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 var(--space-lg);
+}
+
+.topbarLogo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.modeBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+}
+
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px var(--space-lg) var(--space-2xl);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  font-size: 0.85rem;
+}
+
+.breadcrumb a {
+  color: var(--color-slate-light);
+}
+
+.breadcrumb a:hover {
+  color: var(--color-orange);
+}
+
+.breadcrumbSep {
+  color: var(--color-slate);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.header > a {
+  flex-shrink: 0;
+}
+
+.headerMeta {
+  margin-top: var(--space-sm);
+  color: var(--color-slate-light);
+  font-size: 0.9rem;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: var(--space-3xl);
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+}
+
+/* Vendor Card */
+.vendorCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.vendorHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.vendorAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--color-orange-glow);
+  color: var(--color-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.vendorName {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.vendorDesc {
+  font-size: 0.85rem;
+  color: var(--color-slate-light);
+  line-height: 1.4;
+}
+
+.vendorStats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: var(--space-md) 0;
+}
+
+.vendorStatItem {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.vendorStatLabel {
+  display: block;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-slate-light);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vendorStatValue {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-white);
+  font-family: var(--font-mono);
+}
+
+/* QR Section */
+.qrSection {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: var(--space-md);
+}
+
+.qrReady {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.qrPlaceholder {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: var(--radius-md);
+  justify-content: center;
+}
+
+.qrLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-success);
+}
+
+.qrPending {
+  text-align: center;
+  padding: var(--space-md);
+  color: var(--color-slate);
+  font-size: 0.85rem;
+}
+
+.vendorMeta {
+  padding-top: var(--space-sm);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .vendorStats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Charge Button */
+.chargeBtn {
+  width: 100%;
+  text-align: center;
+  font-size: 0.95rem;
+  padding: var(--space-sm) var(--space-md);
+}
+
+/* Modal Overlay */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.15s ease;
+}
+
+.modal {
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.2s ease;
+}
+
+.modalTitle {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.modalSubtitle {
+  font-size: 0.85rem;
+  color: var(--color-slate-light);
+  margin-bottom: var(--space-lg);
+}
+
+/* Amount Input */
+.amountInputWrap {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-md);
+  transition: border-color 0.2s;
+}
+
+.amountInputWrap:focus-within {
+  border-color: var(--color-orange);
+}
+
+.amountPrefix {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-white);
+  margin-right: var(--space-sm);
+}
+
+.amountInput {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-white);
+  font-family: var(--font-mono);
+  width: 100%;
+}
+
+.amountInput::placeholder {
+  color: var(--color-slate);
+}
+
+/* Quick Amount Buttons */
+.quickAmounts {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+
+.quickAmountBtn {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.quickAmountBtn:hover {
+  background: var(--color-orange-glow);
+  border-color: var(--color-orange);
+  color: var(--color-orange);
+}
+
+/* Error */
+.errorText {
+  color: var(--color-error);
+  font-size: 0.8rem;
+  margin-bottom: var(--space-md);
+}
+
+/* Modal Actions */
+.modalActions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+}
+
+/* QR Display */
+.qrDisplay {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-lg);
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
+}
+
+.qrImage {
+  width: 220px;
+  height: 220px;
+  image-rendering: pixelated;
+}
+
+.feeNote {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-slate-light);
+  margin-bottom: var(--space-lg);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

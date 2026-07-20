@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id             String        @id
+  name           String
+  description    String        @default("")
+  date           DateTime      @default(now())
+  location       String        @default("")
+  commissionRate Float
+  status         String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  vendors        Vendor[]
+  transactions   Transaction[]
+}
+
+model Vendor {
+  id              String        @id
+  eventId         String
+  name            String
+  contactEmail    String
+  status          String        @default("pending")
+  pinchMerchantId String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  event           Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  transactions    Transaction[]
+}
+
+model Transaction {
+  id             String   @id
+  eventId        String
+  vendorId       String
+  pinchPaymentId String   @unique
+  amount         Int      // in cents
+  commission     Int      // in cents
+  netAmount      Int      // in cents
+  status         String   // pending, approved, settled, failed
+  customerName   String?
+  customerEmail  String?
+  paymentMethod  String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  event  Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  vendor Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+}
