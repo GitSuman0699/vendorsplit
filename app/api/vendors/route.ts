@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     const vendor = await createVendor({
       eventId: body.eventId,
       name: body.name,
-      contactEmail: body.email,
+      email: body.email,
       pinchMerchantId: merchantId,
     } as any);
 
