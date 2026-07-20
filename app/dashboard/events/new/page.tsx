@@ -37,7 +37,7 @@ export default function NewEventPage() {
       }
 
       const result = await res.json();
-      router.push(`/dashboard/events/${result.data.id}`);
+      router.replace(`/dashboard/events/${result.data.id}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
       setIsSubmitting(false);

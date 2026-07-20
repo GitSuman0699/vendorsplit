@@ -43,7 +43,7 @@ export default function NewVendorPage({ params }: { params: Promise<{ id: string
         throw new Error(errData.error || 'Failed to add vendor');
       }
 
-      router.push(`/dashboard/events/${eventId}`);
+      router.replace(`/dashboard/events/${eventId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
       setIsSubmitting(false);
